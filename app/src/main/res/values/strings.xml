@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Pass Exam</string>
+    <string name="btn_start">Start</string>
+    <string name="btb_done">Done</string>
+</resources>
