@@ -1,8 +1,6 @@
 package com.oleksandr.passexam;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.method.ScrollingMovementMethod;
@@ -10,10 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-/**
- * Created by Oleksandr on 18.07.2017.
- */
 
 public class ResultFragment extends DialogFragment {
     public static final String TEXT = "text_res";

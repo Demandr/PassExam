@@ -10,10 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-/**
- * Created by Oleksandr on 19.07.2017.
- */
-
 public class ChooseQuestionFragment extends DialogFragment {
     public static final String TAG = "ChooseQuestionFragment";
 

@@ -1,9 +1,5 @@
 package com.oleksandr.passexam;
 
-/**
- * Created by Oleksandr on 17.07.2017.
- */
-
 public class QuestionItem {
     private String mQuestion;
     private String mAnswer1;

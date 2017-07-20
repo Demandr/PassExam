@@ -1,7 +1,5 @@
 package com.oleksandr.passexam;
 
-import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -9,28 +7,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-/**
- * Created by Oleksandr on 17.07.2017.
- */
 
 public class TestFragment extends Fragment {
     public static final String TAG = "TestFragment";
@@ -174,8 +164,6 @@ public class TestFragment extends Fragment {
                 answer.add(reader.readLine());
                 answer.add(reader.readLine());
 
-                //Swap
-
                 Random random = new Random();
                 int q = random.nextInt(answer.size());
                 item.setAnswer1(answer.get(q));
@@ -239,7 +227,6 @@ public class TestFragment extends Fragment {
             switch (item.getChoiceAnswerId()){
                 case 0:{
                     mRadioButton1.setChecked(true);
-
                     break;
                 }
                 case 1:{
