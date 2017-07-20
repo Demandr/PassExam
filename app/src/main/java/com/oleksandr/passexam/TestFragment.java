@@ -53,11 +53,9 @@ public class TestFragment extends Fragment {
         mSizeText.setText(QueryPreferences.getQuantity(getActivity()));
         if (btnState){
             mSizeText.setVisibility(View.VISIBLE);
-            mChose.setVisibility(View.VISIBLE);
             mStart.setText(R.string.btn_start);
         }else {
             mSizeText.setVisibility(View.GONE);
-            mChose.setVisibility(View.INVISIBLE);
             mStart.setText(R.string.btb_done);
         }
 
@@ -80,7 +78,7 @@ public class TestFragment extends Fragment {
                     getRandom();
                     btnState = false;
                 }else {
-                    mSizeText.setClickable(false);
+                    mSizeText.setVisibility(View.VISIBLE);
                     mStart.setText(R.string.btn_start);
                     btnState = true;
                     showResult();
