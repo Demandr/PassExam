@@ -18,8 +18,9 @@ public class QueryPreferences {
     private static final String BLOCK_11 = "block_11";
     private static final String BLOCK_12 = "block_12";
     private static final String QUANTITY = "quantity";
+    private static final String RANDOM = "random";
 
-    public static String getQUANTITY(Context context) {
+    public static String getQuantity(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getInt(QUANTITY, 20) + "";
     }
@@ -28,6 +29,18 @@ public class QueryPreferences {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .putInt(QUANTITY, quantity)
+                .apply();
+    }
+
+    public static boolean getRandom(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(RANDOM, false);
+    }
+
+    public static void setRandom(Context context, boolean rand){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(RANDOM, rand)
                 .apply();
     }
 

@@ -25,6 +25,7 @@ public class ChooseQuestionFragment extends DialogFragment {
     private CheckBox mCheckBox10;
     private CheckBox mCheckBox11;
     private CheckBox mCheckBox12;
+    private CheckBox mCheckBox13;
     private Button mButton;
 
     public static ChooseQuestionFragment newInstance() {
@@ -51,6 +52,7 @@ public class ChooseQuestionFragment extends DialogFragment {
         mCheckBox10 = (CheckBox) v.findViewById(R.id.checkBox10);
         mCheckBox11 = (CheckBox) v.findViewById(R.id.checkBox11);
         mCheckBox12 = (CheckBox) v.findViewById(R.id.checkBox12);
+        mCheckBox13 = (CheckBox) v.findViewById(R.id.checkBox13);
 
         mCheckBox1.setChecked(QueryPreferences.getFirstBlock(getActivity()));
         mCheckBox2.setChecked(QueryPreferences.getSecondBlock(getActivity()));
@@ -64,12 +66,14 @@ public class ChooseQuestionFragment extends DialogFragment {
         mCheckBox10.setChecked(QueryPreferences.getBlock10(getActivity()));
         mCheckBox11.setChecked(QueryPreferences.getBlock11(getActivity()));
         mCheckBox12.setChecked(QueryPreferences.getBlock12(getActivity()));
+        mCheckBox13.setChecked(QueryPreferences.getRandom(getActivity()));
 
 
         mButton = (Button) v.findViewById(R.id.buttonSave);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                QueryPreferences.setRandom(getActivity(), mCheckBox13.isChecked());
                 QueryPreferences.setCheckValue(getActivity(), mCheckBox1.isChecked(), mCheckBox2.isChecked(),
                         mCheckBox3.isChecked(), mCheckBox4.isChecked(),mCheckBox5.isChecked(), mCheckBox6.isChecked(),
                         mCheckBox7.isChecked(), mCheckBox8.isChecked(),mCheckBox9.isChecked(), mCheckBox10.isChecked(),

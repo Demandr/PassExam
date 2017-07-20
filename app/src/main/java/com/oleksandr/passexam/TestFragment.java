@@ -50,12 +50,14 @@ public class TestFragment extends Fragment {
         mStart = (Button) v.findViewById(R.id.buttonStart);
         mChose = (Button) v.findViewById(R.id.buttonChoose);
         mSizeText = (TextView) v.findViewById(R.id.editTextSize);
-        mSizeText.setText(QueryPreferences.getQUANTITY(getActivity()));
+        mSizeText.setText(QueryPreferences.getQuantity(getActivity()));
         if (btnState){
             mSizeText.setVisibility(View.VISIBLE);
+            mChose.setVisibility(View.VISIBLE);
             mStart.setText(R.string.btn_start);
         }else {
             mSizeText.setVisibility(View.GONE);
+            mChose.setVisibility(View.INVISIBLE);
             mStart.setText(R.string.btb_done);
         }
 
@@ -64,6 +66,7 @@ public class TestFragment extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 DialogFragment  chooseQuestionFragment = ChooseQuestionFragment.newInstance();
+                chooseQuestionFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_AppCompat_DayNight_Dialog);
                 chooseQuestionFragment.show(fm, null);
             }
         });
@@ -77,7 +80,7 @@ public class TestFragment extends Fragment {
                     getRandom();
                     btnState = false;
                 }else {
-                    mSizeText.setVisibility(View.VISIBLE);
+                    mSizeText.setClickable(false);
                     mStart.setText(R.string.btn_start);
                     btnState = true;
                     showResult();
@@ -109,6 +112,7 @@ public class TestFragment extends Fragment {
         DialogFragment  resultFragment = ResultFragment
                 .newInstance("Incorrect:  " + sizeIncorrect + "/" + mChoiceQuestions.size()
                         + "\n\n" + sb.toString());
+        resultFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_AppCompat_DayNight_Dialog);
         resultFragment.show(fm, null);
     }
 
@@ -180,12 +184,18 @@ public class TestFragment extends Fragment {
         Random random = new Random();
         int s = Integer.parseInt(mSizeText.getText().toString());
         QueryPreferences.setQuantity(getActivity(), s);
-        if (s > questionItems.size()) s = questionItems.size();
-        for (int i = 0; i < s; i++) {
-            int getQuestion = random.nextInt(questionItems.size());
 
-            mChoiceQuestions.add(questionItems.get(getQuestion));
-            questionItems.remove(getQuestion);
+        if (s > questionItems.size()) s = questionItems.size();
+
+        if (QueryPreferences.getRandom(getActivity())) {
+            for (int i = 0; i < s; i++) {
+                int getQuestion = random.nextInt(questionItems.size());
+                mChoiceQuestions.add(questionItems.get(getQuestion));
+                questionItems.remove(getQuestion);
+            }
+        }else {
+            for (int i = 0; i < s; i++)
+                mChoiceQuestions.add(questionItems.get(i));
         }
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
@@ -202,7 +212,7 @@ public class TestFragment extends Fragment {
                 item.setQuestion(s);
                 String text = reader.readLine();
                 item.setTrueAnswer(text);
-                List<String> answer = new ArrayList<String>();
+                List<String> answer = new ArrayList<>();
 
                 answer.add(text);
                 answer.add(reader.readLine());
