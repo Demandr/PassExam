@@ -17,10 +17,64 @@
             android:id="@+id/checkBox2"/>
 
     <CheckBox
-            android:text="515 - 1343"
+            android:text="@string/s515_534"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox3"/>
+
+    <CheckBox
+            android:text="@string/s535_585"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox4"/>
+
+    <CheckBox
+            android:text="@string/s586_621"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox5"/>
+
+    <CheckBox
+            android:text="@string/s622_662"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox6"/>
+
+    <CheckBox
+            android:text="@string/s663_685"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox7"/>
+
+    <CheckBox
+            android:text="@string/s686_953"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox8"/>
+
+    <CheckBox
+            android:text="@string/s954_988"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox9"/>
+
+    <CheckBox
+            android:text="@string/s989_1111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox10"/>
+
+    <CheckBox
+            android:text="@string/s1112_1161"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox11"/>
+
+    <CheckBox
+            android:text="@string/s1162_1343"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox12"/>
 
     <Button
             android:text="Save"

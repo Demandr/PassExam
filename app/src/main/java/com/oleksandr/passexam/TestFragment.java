@@ -122,12 +122,57 @@ public class TestFragment extends Fragment {
             }
         }
         if (QueryPreferences.getSecondBlock(getActivity())){
-            for(int i = 50; i < 90; i++){
+            for(int i = 50; i < 91; i++){
                 questionItems.add(mQuestionItems.get(i));
             }
         }
         if (QueryPreferences.getThirdBlock(getActivity())){
-            for(int i = 90; i < mQuestionItems.size(); i++){
+            for(int i = 91; i < 111; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock4(getActivity())){
+            for(int i = 111; i < 162; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock5(getActivity())){
+            for(int i = 162; i < 198; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock6(getActivity())){
+            for(int i = 198; i < 239; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock7(getActivity())){
+            for(int i = 239; i < 263; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock8(getActivity())){
+            for(int i = 263; i < 530; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock9(getActivity())){
+            for(int i = 530; i < 565; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock10(getActivity())){
+            for(int i = 565; i < 688; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock11(getActivity())){
+            for(int i = 688; i < 738; i++){
+                questionItems.add(mQuestionItems.get(i));
+            }
+        }
+        if (QueryPreferences.getBlock12(getActivity())){
+            for(int i = 738; i < mQuestionItems.size(); i++){
                 questionItems.add(mQuestionItems.get(i));
             }
         }
