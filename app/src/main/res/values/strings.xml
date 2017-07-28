@@ -3,6 +3,8 @@
     <string name="btn_start">Start</string>
     <string name="btb_done">Done</string>
 
+    <string name="well_done">Well done</string>
+
     <string name="s515_534">Граматична форма (515-534)</string>
     <string name="s535_585">Прикметник (535-585)</string>
     <string name="s586_621">Прийменик (586-621)</string>
@@ -13,4 +15,6 @@
     <string name="s989_1111">Дієсловл в під. реч.(989-1111)</string>
     <string name="s1112_1161">Дієслово в пит. реч(1112-1161)</string>
     <string name="s1162_1343">Переклад(1162-1343)</string>
+    <string name="random">Random</string>
+    <string name="set_interval">Set interval</string>
 </resources>
