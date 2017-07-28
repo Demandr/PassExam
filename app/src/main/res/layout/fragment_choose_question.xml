@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:scrollbars="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="match_parent">
 
     <CheckBox
             android:text="1 - 50"
@@ -78,7 +78,7 @@
             android:id="@+id/checkBox12"/>
 
     <CheckBox
-            android:text="Random"
+            android:text="@string/random"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox13"/>
