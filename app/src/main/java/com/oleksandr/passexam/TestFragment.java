@@ -27,7 +27,6 @@ public class TestFragment extends Fragment {
     private List<QuestionItem> mQuestionItems = new ArrayList<>();
     private List<QuestionItem> mChoiceQuestions = new ArrayList<>();
     private Button mStart;
-    private Button mChose;
     private boolean btnState = true;
     private TextView mSizeText;
     private RecyclerView mRecyclerView;
@@ -46,9 +45,8 @@ public class TestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_start, container, false);
-        read();
         mStart = (Button) v.findViewById(R.id.buttonStart);
-        mChose = (Button) v.findViewById(R.id.buttonChoose);
+        Button chose = (Button) v.findViewById(R.id.buttonChoose);
         mSizeText = (TextView) v.findViewById(R.id.editTextSize);
         mSizeText.setText(QueryPreferences.getQuantity(getActivity()));
         if (btnState){
@@ -59,7 +57,7 @@ public class TestFragment extends Fragment {
             mStart.setText(R.string.btb_done);
         }
 
-        mChose.setOnClickListener(new View.OnClickListener() {
+        chose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
@@ -75,12 +73,12 @@ public class TestFragment extends Fragment {
                 if (mSizeText.getVisibility() == View.VISIBLE) {
                     mSizeText.setVisibility(View.GONE);
                     mStart.setText(R.string.btb_done);
-                    getRandom();
-                    btnState = false;
+                    getQuestion();
+                    btnState = !btnState;
                 }else {
                     mSizeText.setVisibility(View.VISIBLE);
                     mStart.setText(R.string.btn_start);
-                    btnState = true;
+                    btnState = !btnState;
                     showResult();
                 }
             }
@@ -99,23 +97,30 @@ public class TestFragment extends Fragment {
         for (QuestionItem item : mChoiceQuestions){
             if (!(item.getChoiceAnswer() != null && item.getChoiceAnswer().equals(item.getTrueAnswer()))){
                 sizeIncorrect++;
-                sb.append(item.getQuestion() + "\n"
-                        + "Choice answer:  " + item.getChoiceAnswer() + "\n"
-                        + "Right answer:  " + item.getTrueAnswer() + "\n\n");
+                sb.append(item.getQuestion())
+                        .append("\n")
+                        .append("Choice answer:  ")
+                        .append(item.getChoiceAnswer())
+                        .append("\n")
+                        .append("Right answer:  ")
+                        .append(item.getTrueAnswer())
+                        .append("\n\n");
             }
         }
 
 
-        FragmentManager fm = getFragmentManager();
+                FragmentManager fm = getFragmentManager();
         DialogFragment  resultFragment = ResultFragment
                 .newInstance("Incorrect:  " + sizeIncorrect + "/" + mChoiceQuestions.size()
                         + "\n\n" + sb.toString());
-        resultFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_AppCompat_DayNight_Dialog);
+        mChoiceQuestions.clear();
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+//        resultFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_AppCompat_DayNight_Dialog);
         resultFragment.show(fm, null);
     }
 
-    private void getRandom(){
-        mChoiceQuestions.clear();
+    private void getQuestion(){
+        read();
         List<QuestionItem> questionItems = new ArrayList<>();
 
         if (QueryPreferences.getFirstBlock(getActivity())){
@@ -149,12 +154,12 @@ public class TestFragment extends Fragment {
             }
         }
         if (QueryPreferences.getBlock7(getActivity())){
-            for(int i = 239; i < 263; i++){
+            for(int i = 239; i < 262; i++){
                 questionItems.add(mQuestionItems.get(i));
             }
         }
         if (QueryPreferences.getBlock8(getActivity())){
-            for(int i = 263; i < 530; i++){
+            for(int i = 262; i < 530; i++){
                 questionItems.add(mQuestionItems.get(i));
             }
         }
@@ -179,27 +184,34 @@ public class TestFragment extends Fragment {
             }
         }
 
-        Random random = new Random();
-        int s = Integer.parseInt(mSizeText.getText().toString());
-        QueryPreferences.setQuantity(getActivity(), s);
+        getRandom(questionItems);
 
-        if (s > questionItems.size()) s = questionItems.size();
-
-        if (QueryPreferences.getRandom(getActivity())) {
-            for (int i = 0; i < s; i++) {
-                int getQuestion = random.nextInt(questionItems.size());
-                mChoiceQuestions.add(questionItems.get(getQuestion));
-                questionItems.remove(getQuestion);
-            }
-        }else {
-            for (int i = 0; i < s; i++)
-                mChoiceQuestions.add(questionItems.get(i));
-        }
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
     }
 
+    private void getRandom(List<QuestionItem> list){
+        mChoiceQuestions.clear();
+        Random random = new Random();
+        int s = Integer.parseInt(mSizeText.getText().toString());
+        QueryPreferences.setQuantity(getActivity(), s);
+
+        if (s > list.size()) s = list.size();
+
+        if (QueryPreferences.getRandom(getActivity())) {
+            for (int i = 0; i < s; i++) {
+                int getQuestion = random.nextInt(list.size());
+                mChoiceQuestions.add(list.get(getQuestion));
+                list.remove(getQuestion);
+            }
+        }else {
+            for (int i = 0; i < s; i++)
+                mChoiceQuestions.add(list.get(i));
+        }
+    }
+
     private void read(){
+        mQuestionItems.clear();
         try {
             Log.d(TAG, "start");
         BufferedReader reader = new BufferedReader(
