@@ -9,11 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class ResultFragment extends DialogFragment {
     public static final String TEXT = "text_res";
 
     private String mTextResult;
-    private TextView mTextView;
+    @BindView(R.id.textResult) TextView mTextView;
+    private Unbinder unbinder;
 
     public static ResultFragment newInstance(String s) {
         Bundle args = new Bundle();
@@ -33,10 +38,15 @@ public class ResultFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_result, container, false);
-
-        mTextView = (TextView) v.findViewById(R.id.textResult);
+        unbinder = ButterKnife.bind(this, v);
         mTextView.setText(mTextResult);
         mTextView.setMovementMethod(new ScrollingMovementMethod());
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

@@ -11,32 +11,12 @@ public class QuestionItem {
     private String mTrueAnswer;
 
     private int mChoiceAnswerId = -1;
-    private boolean selected = false;
 
     @Override
     public String toString() {
         return "Question:  " + mQuestion + "\nAnswer: " + mAnswer1+ "\nAnswer: " + mAnswer2
                 + "\nAnswer: " + mAnswer3 + "\nAnswer: " + mAnswer4
                 + "\n\nTrue answer: " + mTrueAnswer + "\nChose answer: " + mChoiceAnswer + "\n\n";
-    }
-
-    public QuestionItem(String question, String answer1, String answer2, String answer3, String answer4) {
-        mQuestion = question;
-        mAnswer1 = answer1;
-        mAnswer2 = answer2;
-        mAnswer3 = answer3;
-        mAnswer4 = answer4;
-    }
-
-    public boolean isSelected(){
-        return selected;
-    }
-
-    public void setSelected(boolean is){
-        selected = is;
-    }
-
-    public QuestionItem() {
     }
 
     public String getQuestion() {
