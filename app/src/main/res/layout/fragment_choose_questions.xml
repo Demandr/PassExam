@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:scrollbars="vertical"
+                  android:scrollbarAlwaysDrawVerticalTrack="true"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <CheckBox
+                android:text="1 - 50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox"/>
+
+        <CheckBox
+                android:text="262 - 302"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox2"/>
+
+        <CheckBox
+                android:text="@string/s515_534"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox3"/>
+
+        <CheckBox
+                android:text="@string/s535_585"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox4"/>
+
+        <CheckBox
+                android:text="@string/s586_621"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox5"/>
+
+        <CheckBox
+                android:text="@string/s622_662"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox6"/>
+
+        <CheckBox
+                android:text="@string/s663_685"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox7"/>
+
+        <CheckBox
+                android:text="@string/s686_953"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox8"/>
+
+        <CheckBox
+                android:text="@string/s954_988"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox9"/>
+
+        <CheckBox
+                android:text="@string/s989_1111"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox10"/>
+
+        <CheckBox
+                android:text="@string/s1112_1161"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox11"/>
+
+        <CheckBox
+                android:text="@string/s1162_1343"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox12"/>
+
+        <CheckBox
+                android:text="@string/random"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox13"/>
+
+        <Button
+                android:text="Save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonSave"/>
+    </LinearLayout>
+</ScrollView>

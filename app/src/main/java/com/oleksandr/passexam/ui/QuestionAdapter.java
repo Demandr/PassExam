@@ -1,4 +1,4 @@
-package com.oleksandr.passexam;
+package com.oleksandr.passexam.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.oleksandr.passexam.R;
+import com.oleksandr.passexam.QuestionItem;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
