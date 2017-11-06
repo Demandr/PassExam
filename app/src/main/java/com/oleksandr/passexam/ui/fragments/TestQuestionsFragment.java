@@ -38,6 +38,8 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
 
+    private QuestionAdapter mAdapter;
+
     @ProvidePresenter
     TestQuestionsPresenter provideTestQuestionsPresenter() {
         return new TestQuestionsPresenter(getActivity().getApplicationContext());
@@ -67,6 +69,7 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        mAdapter = new QuestionAdapter(getActivity(), mTestQuestionsPresenter.getChoiceQuestions());
         mSizeText.setText(QueryPreferences.getQuantity(getActivity()));
         if (btnState){
             mSizeText.setVisibility(View.VISIBLE);
@@ -77,7 +80,7 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(new QuestionAdapter(getActivity(), mTestQuestionsPresenter.getChoiceQuestions()));
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
@@ -92,7 +95,8 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
             mSizeText.setVisibility(View.GONE);
             mStart.setText(R.string.btb_done);
             mTestQuestionsPresenter.getQuestions(Integer.parseInt(mSizeText.getText().toString()));
-            mRecyclerView.getAdapter().notifyDataSetChanged();
+            mAdapter.setQuestion(mTestQuestionsPresenter.getChoiceQuestions());
+            mAdapter.notifyDataSetChanged();
             btnState = !btnState;
         }else {
             mSizeText.setVisibility(View.VISIBLE);
@@ -113,4 +117,8 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
         df.show(getFragmentManager(), "Choice");
     }
 
+    @Override
+    public void updateRecycler() {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+    }
 }

@@ -7,4 +7,5 @@ import com.arellomobile.mvp.MvpView;
 public interface TestQuestionsView extends MvpView {
     void showResultFragment(DialogFragment df);
     void showChoiceFragment(DialogFragment df);
+    void updateRecycler();
 }

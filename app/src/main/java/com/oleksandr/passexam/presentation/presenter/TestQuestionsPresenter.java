@@ -1,7 +1,7 @@
 package com.oleksandr.passexam.presentation.presenter;
 
 
-
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
@@ -10,26 +10,23 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.oleksandr.passexam.QueryPreferences;
-import com.oleksandr.passexam.R;
 import com.oleksandr.passexam.QuestionItem;
+import com.oleksandr.passexam.R;
 import com.oleksandr.passexam.presentation.view.TestQuestionsView;
 import com.oleksandr.passexam.ui.fragments.ChooseQuestionFragment;
 import com.oleksandr.passexam.ui.fragments.ResultFragment;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-
-import static android.content.ContentValues.TAG;
+import java.util.Map;
 
 @InjectViewState
 public class TestQuestionsPresenter extends MvpPresenter<TestQuestionsView> {
+    public static final String TAG = "TestQuestionsPresenter";
     private final Context mContext;
-    private List<QuestionItem> mQuestionItems = new ArrayList<>();
     private List<QuestionItem> mChoiceQuestions = new ArrayList<>();
+    private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
     public TestQuestionsPresenter(Context context) {
         mContext = context;
@@ -68,71 +65,100 @@ public class TestQuestionsPresenter extends MvpPresenter<TestQuestionsView> {
     }
 
     public void getQuestions(int quantity){
-        read();
-        List<QuestionItem> questionItems = new ArrayList<>();
 
-        if (QueryPreferences.getFirstBlock(mContext)){
-            for(int i = 0; i < 50; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getSecondBlock(mContext)){
-            for(int i = 50; i < 91; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getThirdBlock(mContext)){
-            for(int i = 91; i < 111; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock4(mContext)){
-            for(int i = 111; i < 162; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock5(mContext)){
-            for(int i = 162; i < 198; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock6(mContext)){
-            for(int i = 198; i < 239; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock7(mContext)){
-            for(int i = 239; i < 262; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock8(mContext)){
-            for(int i = 262; i < 530; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock9(mContext)){
-            for(int i = 530; i < 565; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock10(mContext)){
-            for(int i = 565; i < 688; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock11(mContext)){
-            for(int i = 688; i < 738; i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
-        if (QueryPreferences.getBlock12(mContext)){
-            for(int i = 738; i < mQuestionItems.size(); i++){
-                questionItems.add(mQuestionItems.get(i));
-            }
-        }
+        mChoiceQuestions.clear();
+        Log.d(TAG, "getQuestions: " + QueryPreferences.getFirstBlock(mContext));
 
-        mixQuestions(questionItems, quantity);
+        mFirestore.collection("Exam").document("Questions")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null){
+                            List<Map<String, Object>> mapList;
+                            Map<String, Object> docData;
+                            docData = task.getResult().getData();
+                            if (QueryPreferences.getFirstBlock(mContext)) {
+                                mapList = (List<Map<String,Object>>) docData.get("Profiled_1");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getSecondBlock(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Profiled_2");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getThirdBlock(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Grammatical form");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock4(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Adjective");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock5(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Preposition");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock6(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Pronoun");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock7(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Noun");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }if (QueryPreferences.getBlock8(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Verb");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }if (QueryPreferences.getBlock9(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Modal verb");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock10(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Subordinate sentence");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock11(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Questionnaire");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                            if (QueryPreferences.getBlock12(mContext)){
+                                mapList = (List<Map<String,Object>>) docData.get("Translation");
+                                mChoiceQuestions.addAll(parseTask(mapList));
+                            }
+                        }else {
+                            Log.d(TAG, "onComplete: Empty fireStore");
+                        }
+                    }else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                    mixQuestions(mChoiceQuestions, quantity);
+                    getViewState().updateRecycler();
+                });
+    }
+
+    private List<QuestionItem> parseTask(List<Map<String, Object>> mapList) {
+        List<QuestionItem> itemList = new ArrayList<>();
+        List<String> list = new ArrayList<>();
+
+        for (Map<String, Object> questionItem : mapList) {
+            list.clear();
+
+            QuestionItem item = new QuestionItem();
+            item.setQuestion(questionItem.get("question").toString());
+            item.setTrueAnswer(questionItem.get("answer1").toString());
+
+            list.add(questionItem.get("answer1").toString());
+            list.add(questionItem.get("answer2").toString());
+            list.add(questionItem.get("answer3").toString());
+            list.add(questionItem.get("answer4").toString());
+
+            Collections.shuffle(list);
+
+            item.setAnswer1(list.get(0));
+            item.setAnswer2(list.get(1));
+            item.setAnswer3(list.get(2));
+            item.setAnswer4(list.get(3));
+            itemList.add(item);
+        }
+        return itemList;
     }
 
     public List<QuestionItem> getChoiceQuestions() {
@@ -140,64 +166,11 @@ public class TestQuestionsPresenter extends MvpPresenter<TestQuestionsView> {
     }
 
     private void mixQuestions(List<QuestionItem> list, int quantity){
-        mChoiceQuestions.clear();
-        Random random = new Random();
-        QueryPreferences.setQuantity(mContext, quantity);
+        if (QueryPreferences.getRandom(mContext))
+            Collections.shuffle(list);
 
-        if (quantity > list.size()) quantity = list.size();
-
-        if (QueryPreferences.getRandom(mContext)) {
-            for (int i = 0; i < quantity; i++) {
-                int getQuestion = random.nextInt(list.size());
-                mChoiceQuestions.add(list.get(getQuestion));
-                list.remove(getQuestion);
-            }
-        }else {
-            for (int i = 0; i < quantity; i++)
-                mChoiceQuestions.add(list.get(i));
+        while (list.size() > quantity){
+            list.remove(list.size() - 1);
         }
     }
-
-    private void read(){
-        mQuestionItems.clear();
-        try {
-            Log.d(TAG, "start");
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(mContext.getAssets().open("question")));
-            String s;
-            while ((s = reader.readLine()) != null) {
-                QuestionItem item = new QuestionItem();
-                item.setQuestion(s);
-                String text = reader.readLine();
-                item.setTrueAnswer(text);
-                // TODO: 25.08.2017 rewrite Random
-                List<String> answer = new ArrayList<>();
-
-                answer.add(text);
-                answer.add(reader.readLine());
-                answer.add(reader.readLine());
-                answer.add(reader.readLine());
-
-                Random random = new Random();
-                int q = random.nextInt(answer.size());
-                item.setAnswer1(answer.get(q));
-                answer.remove(q);
-                q = random.nextInt(answer.size());
-                item.setAnswer2(answer.get(q));
-                answer.remove(q);
-                q = random.nextInt(answer.size());
-                item.setAnswer3(answer.get(q));
-                answer.remove(q);
-                q = random.nextInt(answer.size());
-                item.setAnswer4(answer.get(q));
-                answer.remove(q);
-
-                mQuestionItems.add(item);
-            }
-            reader.close();
-        } catch (IOException e) {
-            Log.e(TAG, e.toString());
-        }
-    }
-
 }

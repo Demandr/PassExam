@@ -23,14 +23,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     private Context mContext;
     private List<QuestionItem> mQuestionItems;
 
-//    private OnItemClickListener mListener;
-//
-//    public QuestionAdapter(Context context, List<QuestionItem> list, OnItemClickListener onItemClickListener) {
-//        this.mContext = context;
-//        this.mQuestionItems = list;
-//        this.mListener = onItemClickListener;
-//    }
-
     public QuestionAdapter(Context context, List<QuestionItem> questionItems) {
         this.mContext = context;
         this.mQuestionItems = questionItems;
@@ -119,6 +111,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 holder.mRadioGroup.clearCheck();
             }
         }
+
+    }
+
+    public void setQuestion(List<QuestionItem> questionItems){
+        this.mQuestionItems = questionItems;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
