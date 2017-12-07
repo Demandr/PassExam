@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -33,10 +34,14 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
 
     @BindView(R.id.buttonStart)
     Button mStart;
+    @BindView(R.id.buttonChoose)
+    Button mChoose;
     @BindView(R.id.editTextSize)
     TextView mSizeText;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progressBarQuestions)
+    ProgressBar mProgressBar;
 
     private QuestionAdapter mAdapter;
 
@@ -93,6 +98,12 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
     public void pressStart(){
         if (mSizeText.getVisibility() == View.VISIBLE) {
             mSizeText.setVisibility(View.GONE);
+
+            mStart.setVisibility(View.INVISIBLE);
+            mChoose.setVisibility(View.INVISIBLE);
+
+            mRecyclerView.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.VISIBLE);
             mStart.setText(R.string.btb_done);
             mTestQuestionsPresenter.getQuestions(Integer.parseInt(mSizeText.getText().toString()));
             mAdapter.setQuestion(mTestQuestionsPresenter.getChoiceQuestions());
@@ -120,5 +131,9 @@ public class TestQuestionsFragment extends MvpAppCompatFragment implements TestQ
     @Override
     public void updateRecycler() {
         mRecyclerView.getAdapter().notifyDataSetChanged();
+        mProgressBar.setVisibility(View.GONE);
+        mStart.setVisibility(View.VISIBLE);
+        mChoose.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 }
