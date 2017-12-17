@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "com.oleksandr.passexam"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -28,19 +28,28 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:recyclerview-v7:25.4.0'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.arello-mobile:moxy-app-compat:1.5.3'
-    compile 'com.arello-mobile:moxy-android:1.5.3'
-    compile 'com.arello-mobile:moxy:1.5.3'
-    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
+    testCompile 'junit:junit:4.12'
+
+    compile rootProject.ext.supportLibAppCompat
+    compile rootProject.ext.recyclerView
+
+    compile rootProject.ext.constraintLayout
+
+    compile rootProject.ext.butterknife
+    annotationProcessor rootProject.ext.butterknifeCompiler
+
+    compile rootProject.ext.moxyAppCompat
+    compile rootProject.ext.moxyAndroid
+    compile rootProject.ext.moxy
+    annotationProcessor rootProject.ext.moxyCompiler
+    //room
+    compile rootProject.ext.roomRuntime
+    annotationProcessor rootProject.ext.roomCompiler
+
     //firebase
-    compile 'com.google.firebase:firebase-firestore:11.6.2'
+    compile rootProject.ext.firestore
+
     apply plugin: 'com.google.gms.google-services'
 
-    testCompile 'junit:junit:4.12'
+
 }

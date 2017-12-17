@@ -24,3 +24,31 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext{
+    supportLibVersion = '26.1.0'
+    moxyVersion = '1.5.3'
+    butterknifeVersion = '8.8.1'
+    roomVersion = '1.0.0'
+    firestoreVersion = '11.6.2'
+    constraintLayoutVersion = '1.0.2'
+
+
+
+    supportLibAppCompat = "com.android.support:appcompat-v7:$supportLibVersion"
+    recyclerView = "com.android.support:recyclerview-v7:$supportLibVersion"
+    constraintLayout = "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    butterknife = "com.jakewharton:butterknife:$butterknifeVersion"
+    butterknifeCompiler = "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    roomRuntime = "android.arch.persistence.room:runtime:$roomVersion"
+    roomCompiler = "android.arch.persistence.room:compiler:$roomVersion"
+    moxyAppCompat = "com.arello-mobile:moxy-app-compat:$moxyVersion"
+    moxyAndroid = "com.arello-mobile:moxy-android:$moxyVersion"
+    moxy =  "com.arello-mobile:moxy:$moxyVersion"
+    moxyCompiler = "com.arello-mobile:moxy-compiler:$moxyVersion"
+    firestore = "com.google.firebase:firebase-firestore:$firestoreVersion"
+
+
+
+
+}
